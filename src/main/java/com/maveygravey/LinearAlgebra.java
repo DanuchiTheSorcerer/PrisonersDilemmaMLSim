@@ -16,6 +16,13 @@ public class LinearAlgebra {
     public static Matrix newMatrix(int rows, int cols, float[][] components) {
         return Matrix.newMatrix(rows, cols, components);
     }
+    public static Vector activationFunction(Vector v) {
+        float[] newComponents = new float[v.getSize()];
+        for (int i = 0; i < v.getSize(); i++) {
+            newComponents[i] = Math.max(0, v.getComponent(i));
+        }
+        return Vector.newVector(v.getSize(), newComponents);
+    }
 }
 
 class Vector {
@@ -27,6 +34,9 @@ class Vector {
     }
     public float getComponent(int index) {
         return components[index];
+    }
+    public int getSize() {
+        return components.length;
     }
     public Vector add(Vector other) {
         float[] newComponents = new float[components.length];
@@ -107,5 +117,16 @@ class Matrix {
             }
         }
         return Matrix.newMatrix(components.length, other.components[0].length, newComponents);
+    }
+    public Vector transform(Vector v) {
+        float[] newComponents = new float[components.length];
+        for (int i = 0; i < components.length; i++) {
+            float sum = 0;
+            for (int j = 0; j < components[0].length; j++) {
+                sum += components[i][j] * v.getComponent(j);
+            }
+            newComponents[i] = sum;
+        }
+        return Vector.newVector(components.length, newComponents);
     }
 }

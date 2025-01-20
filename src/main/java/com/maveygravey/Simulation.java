@@ -8,9 +8,15 @@ import com.maveygravey.LinearAlgebra;
 public class Simulation {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        LinearAlgebra.main(new String[] { "run" });
-        System.out.println(" " + LinearAlgebra.newVector(0, new float[] {1, 2, 3}).getComponent(2));
+        Vector input = LinearAlgebra.newVector(1, new float[] {1});
+        NeuralNetwork nn = NeuralNetwork.newNeuralNetwork(new int[] {1, 2, 1});
+        Vector output = nn.feedForward(input);
+        System.out.println("Input Vector: " + input.getComponent(0));
+        System.out.println("Output of Neural Network: " + output.getComponent(0));
+        System.out.println("Network Weights Layer 1: " + nn.weights[0].getComponent(0, 0) + ' ' + nn.weights[0].getComponent(1, 0));
+        System.out.println("Network Weights Layer 2: " + nn.weights[1].getComponent(0, 0) + ' ' + nn.weights[1].getComponent(0, 1));
+        System.out.println("Network Biases Layer 1: " + nn.biases[0].getComponent(0) + ' ' + nn.biases[0].getComponent(1));
+        System.out.println("Network Biases Layer 2: " + nn.biases[1].getComponent(0));
     }
 }
 
