@@ -1,6 +1,5 @@
 package com.maveygravey;
 
-import com.maveygravey.LinearAlgebra;
 import java.util.Random;
 
 public class NeuralNetwork {
@@ -15,10 +14,6 @@ public class NeuralNetwork {
         for (int i = 0; i < layerSizes.length - 1; i++) {
             Vector z = weights[i].transform(a).add(biases[i]);
             a = LinearAlgebra.activationFunction(z);
-            for (int j=0; j<a.getSize(); j++) {
-                System.out.println(z.getComponent(j));
-                System.out.println(a.getComponent(j));
-            }
         }
         return a;
     }

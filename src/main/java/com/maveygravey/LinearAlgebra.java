@@ -8,7 +8,6 @@ public class LinearAlgebra {
             {4, 5, 6},
             {7, 8, 9}
         });
-        System.out.println("Linear Algebra PogChamp " + testVector.getComponent(0) + ' ' + testMatrix.getComponent(0, 0));
     }
     public static Vector newVector(int size, float[] components) {
         return Vector.newVector(size, components);
@@ -66,6 +65,20 @@ class Vector {
         }
         return result;
     }
+    public Vector softmax() {
+        float sum = 0;
+        for (int i = 0; i < components.length; i++) {
+            sum += Math.exp(components[i]);
+        }
+        float[] newComponents = new float[components.length];
+        for (int i = 0; i < components.length; i++) {
+            newComponents[i] = (float) Math.exp(components[i]) / sum;
+        }
+        return Vector.newVector(components.length, newComponents);
+    }
+    public void set(int index, float value) {
+        components[index] = value;
+    }
 }
 
 class Matrix {
@@ -74,6 +87,12 @@ class Matrix {
         Matrix m = new Matrix();
         m.components = components;
         return m;
+    }
+    public int getRows() {
+        return components.length;
+    }
+    public int getCols() {
+        return components[0].length;
     }
     public float getComponent(int row, int col) {
         return components[row][col];
@@ -128,5 +147,8 @@ class Matrix {
             newComponents[i] = sum;
         }
         return Vector.newVector(components.length, newComponents);
+    }
+    public void set(int row, int col, float value) {
+        components[row][col] = value;
     }
 }
